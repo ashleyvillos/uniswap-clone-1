@@ -26,6 +26,26 @@ const style = {
 const Header = () => {
     const [selectedNav, setSelectedNav] = useState('swap')
     const { connectWallet, currentAccount } = useContext(TransactionContext)
+    const [userName, setUserName] = useState()
+
+    useEffect(() => {
+        // if (currentAccount) {
+        //     (async () => {
+        //         const query = `*[_type=="users" && _id == "${currentAccount}"] {userName,}`
+        //         const clientRes = await client.fetch(query)
+        
+        //         if (!(clientRes[0].userName == 'Unnamed')) {
+        //             setUserName(clientRes[0].userName)
+        //         } else {
+        //             setUserName(`${currentAccount.slice(0, 7)}...${currentAccount.slice(35)}`,)
+        //         }
+        //     })()
+        // }
+
+        if (currentAccount) {
+            setUserName(`${currentAccount.slice(0, 7)}...${currentAccount.slice(35)}`,)
+        }
+    }, [currentAccount])
     
     return (
         <div className={style.wrapper}>
@@ -81,7 +101,7 @@ const Header = () => {
                 {currentAccount ? (
                     <div className={`${style.button} ${style.buttonPadding}`}>
                         {/* <div className={style.buttonTextContainer}>{userName}</div> */}
-                        <div className={style.buttonTextContainer}>0x1241...</div>
+                        <div className={style.buttonTextContainer}>{userName}</div>
                     </div>
                 ) : (
                     <div
